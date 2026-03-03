@@ -6,7 +6,7 @@ const EVENT = {
   title: "Srinivas Kalyanam – The Divine Wedding of Lord Srinivasa",
   description:
     "The Guttula Family cordially invites you to the sacred Srinivas Kalyanam (Lord Srinivasa's Divine Wedding Ceremony). Please join us to witness this auspicious celebration.",
-  location: "Sri Venkateswara Swami Temple, 1145 W. Sullivan Rd, Aurora, IL 60506",
+  location: "Kedarnath Hall, Shiva-Vishnu Temple, 1232 Arrowhead Ave, Livermore, CA 94551",
   startDatetime: "20260327T103000",
   endDatetime: "20260327T160000",
   startDatetimeLocal: "2026-03-27T10:30:00",

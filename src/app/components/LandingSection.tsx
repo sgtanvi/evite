@@ -17,7 +17,8 @@ const EVENT_DETAILS = {
   date: "March 21, 2026",
   time: "11:00 AM",
   venue: "Kedarnath Hall",
-  address: "1232 Arrowhead Ave, Livermore, CA 94551",
+  venueSub: "Shiva-Vishnu Temple",
+  address: "1232 Arrowhead Ave,\nLivermore, CA 94551",
 } as const;
 
 interface LandingSectionProps {
@@ -238,11 +239,15 @@ export function LandingSection({ onSubmit, isSubmitting }: LandingSectionProps) 
                   <div style={{ color: "#4B0082" }}>
                     <strong>{EVENT_DETAILS.venue}</strong>
                   </div>
+                  <div style={{ color: "#4B0082", fontSize: "0.9em" }}>
+                    {EVENT_DETAILS.venueSub}
+                  </div>
                   <div
                     style={{
                       color: "#6b4c1a",
                       fontSize: "0.875em",
                       marginTop: 3,
+                      whiteSpace: "pre-line",
                     }}
                   >
                     {EVENT_DETAILS.address}
