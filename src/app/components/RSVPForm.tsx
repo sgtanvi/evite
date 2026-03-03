@@ -4,6 +4,8 @@ import { TempleGoldBorder } from "./DecorativeElements";
 
 export type AttendanceChoice = "yes" | "no";
 
+const MAX_NAME_LENGTH = 200;
+
 interface RSVPFormProps {
   onSubmit: (name: string, attendance: AttendanceChoice) => Promise<void>;
   isSubmitting: boolean;
@@ -17,8 +19,12 @@ export function RSVPForm({ onSubmit, isSubmitting }: RSVPFormProps) {
 
   function validate(): boolean {
     let valid = true;
-    if (!name.trim()) {
+    const trimmed = name.trim();
+    if (!trimmed) {
       setNameError("Please enter your full name.");
+      valid = false;
+    } else if (trimmed.length > MAX_NAME_LENGTH) {
+      setNameError(`Name must be ${MAX_NAME_LENGTH} characters or less.`);
       valid = false;
     } else {
       setNameError("");
@@ -35,7 +41,10 @@ export function RSVPForm({ onSubmit, isSubmitting }: RSVPFormProps) {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!validate() || isSubmitting) return;
-    await onSubmit(name.trim(), attendance!);
+    const trimmed = name.trim();
+    if (trimmed.length > MAX_NAME_LENGTH) return;
+    if (attendance !== "yes" && attendance !== "no") return;
+    await onSubmit(trimmed, attendance);
   }
 
   return (
@@ -90,12 +99,14 @@ export function RSVPForm({ onSubmit, isSubmitting }: RSVPFormProps) {
               id="rsvp-name"
               type="text"
               value={name}
+              maxLength={MAX_NAME_LENGTH}
               onChange={(e) => {
                 setName(e.target.value);
                 if (nameError) setNameError("");
               }}
               placeholder="Enter your full name"
               disabled={isSubmitting}
+              autoComplete="name"
               className="w-full px-4 py-3 rounded-sm transition-all duration-200 focus:outline-none"
               style={{
                 background: "#FFFEF5",

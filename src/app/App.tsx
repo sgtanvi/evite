@@ -4,6 +4,7 @@ import { LandingSection } from "./components/LandingSection";
 import { ThankYouSection } from "./components/ThankYouSection";
 import { FloatingPetals } from "./components/FloatingPetals";
 import type { AttendanceChoice } from "./components/RSVPForm";
+import { supabase, RSVP_TABLE } from "@/lib/supabase";
 
 type AppPhase = "idle" | "submitting" | "confirmed";
 
@@ -12,10 +13,43 @@ interface RSVPData {
   attendance: AttendanceChoice;
 }
 
-/** Simulates a backend RSVP submission. Replace with a real API call. */
+const MAX_NAME_LENGTH = 200;
+const RSVP_COOLDOWN_MS = 60_000; // 1 minute between submissions per browser
+const RSVP_STORAGE_KEY = "evite_rsvp_last_submit";
+
+function isRateLimited(): boolean {
+  try {
+    const raw = sessionStorage.getItem(RSVP_STORAGE_KEY);
+    if (!raw) return false;
+    const last = parseInt(raw, 10);
+    return Date.now() - last < RSVP_COOLDOWN_MS;
+  } catch {
+    return false;
+  }
+}
+
+function recordSubmission(): void {
+  try {
+    sessionStorage.setItem(RSVP_STORAGE_KEY, String(Date.now()));
+  } catch {
+    // ignore
+  }
+}
+
+function validateInput(name: string, attendance: AttendanceChoice): void {
+  const trimmed = name.trim();
+  if (!trimmed) throw new Error("Name is required.");
+  if (trimmed.length > MAX_NAME_LENGTH) throw new Error("Name is too long.");
+  if (attendance !== "yes" && attendance !== "no") throw new Error("Invalid attendance.");
+}
+
 async function submitRSVP(name: string, attendance: AttendanceChoice): Promise<void> {
-  await new Promise<void>((resolve) => setTimeout(resolve, 1600));
-  // In production, replace with: await fetch('/api/rsvp', { method: 'POST', body: JSON.stringify({ name, attendance }) });
+  validateInput(name, attendance);
+  if (isRateLimited()) throw new Error("Please wait a moment before submitting again.");
+  const trimmed = name.trim().slice(0, MAX_NAME_LENGTH);
+  const { error } = await supabase.from(RSVP_TABLE).insert({ name: trimmed, attendance });
+  if (error) throw error;
+  recordSubmission();
 }
 
 /** Scroll threshold (px) above which banana leaves hide. */
@@ -66,8 +100,9 @@ export default function App() {
           thankYouRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
         }, 100);
       } catch (err) {
-        // In production, surface this error to the user via a toast / alert
         console.error("RSVP submission failed:", err);
+        const message = err instanceof Error ? err.message : "Something went wrong. Please try again.";
+        alert(message);
         setPhase("idle");
       }
     },
