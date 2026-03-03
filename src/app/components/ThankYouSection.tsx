@@ -185,16 +185,6 @@ function YesResponse({ guestName }: { guestName: string }) {
         </motion.p>
 
         <motion.div variants={itemVariants} style={{ marginTop: 20 }}>
-          <p
-            style={{
-              fontFamily: "'Cinzel', serif",
-              fontSize: 11,
-              color: "rgba(255,200,100,0.6)",
-              letterSpacing: "0.12em",
-            }}
-          >
-            For queries: guttulafamily@email.com · +1 (630) 555-0194
-          </p>
         </motion.div>
       </div>
     </motion.div>
@@ -347,16 +337,6 @@ function NoResponse({
             }}
           >
             May you be showered with Lord Venkateswara's blessings
-          </p>
-          <p
-            style={{
-              fontFamily: "'Cinzel', serif",
-              fontSize: 11,
-              color: "#a07c30",
-              letterSpacing: "0.1em",
-            }}
-          >
-            guttulafamily@email.com · +1 (630) 555-0194
           </p>
         </motion.div>
       </div>
