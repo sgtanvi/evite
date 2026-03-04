@@ -17,6 +17,7 @@ export interface RSVPRow {
   id?: string;
   name: string;
   attendance: AttendanceChoice;
+  num_guests?: number;
   created_at?: string;
 }
 

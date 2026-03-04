@@ -22,7 +22,7 @@ const EVENT_DETAILS = {
 } as const;
 
 interface LandingSectionProps {
-  onSubmit: (name: string, attendance: AttendanceChoice) => Promise<void>;
+  onSubmit: (name: string, attendance: AttendanceChoice, numGuests: number) => Promise<void>;
   isSubmitting: boolean;
 }
 
@@ -153,7 +153,7 @@ export function LandingSection({ onSubmit, isSubmitting }: LandingSectionProps) 
             filter: "drop-shadow(0 2px 6px rgba(139,0,0,0.2))",
           }}
         >
-          SRINIVASA KALYANAM
+          SRINIVASA  KALYANAM
         </motion.h1>
 
         <motion.div

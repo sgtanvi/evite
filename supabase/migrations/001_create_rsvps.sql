@@ -4,6 +4,7 @@ create table if not exists public.rsvps (
   id uuid primary key default gen_random_uuid(),
   name text not null check (char_length(name) <= 500),
   attendance text not null check (attendance in ('yes', 'no')),
+  num_guests integer not null default 1 check (num_guests >= 0 and num_guests <= 50),
   created_at timestamptz default now()
 );
 

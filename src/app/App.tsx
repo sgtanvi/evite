@@ -11,6 +11,7 @@ type AppPhase = "idle" | "submitting" | "confirmed";
 interface RSVPData {
   name: string;
   attendance: AttendanceChoice;
+  numGuests: number;
 }
 
 const MAX_NAME_LENGTH = 200;
@@ -36,18 +37,23 @@ function recordSubmission(): void {
   }
 }
 
-function validateInput(name: string, attendance: AttendanceChoice): void {
+function validateInput(name: string, attendance: AttendanceChoice, numGuests: number): void {
   const trimmed = name.trim();
   if (!trimmed) throw new Error("Name is required.");
   if (trimmed.length > MAX_NAME_LENGTH) throw new Error("Name is too long.");
   if (attendance !== "yes" && attendance !== "no") throw new Error("Invalid attendance.");
+  if (numGuests < 0 || numGuests > 50 || !Number.isInteger(numGuests)) throw new Error("Invalid number of guests.");
 }
 
-async function submitRSVP(name: string, attendance: AttendanceChoice): Promise<void> {
-  validateInput(name, attendance);
+async function submitRSVP(name: string, attendance: AttendanceChoice, numGuests: number): Promise<void> {
+  validateInput(name, attendance, numGuests);
   if (isRateLimited()) throw new Error("Please wait a moment before submitting again.");
   const trimmed = name.trim().slice(0, MAX_NAME_LENGTH);
-  const { error } = await supabase.from(RSVP_TABLE).insert({ name: trimmed, attendance });
+  const { error } = await supabase.from(RSVP_TABLE).insert({
+    name: trimmed,
+    attendance,
+    num_guests: numGuests,
+  });
   if (error) throw error;
   recordSubmission();
 }
@@ -88,11 +94,11 @@ export default function App() {
   }, []);
 
   const handleSubmit = useCallback(
-    async (name: string, attendance: AttendanceChoice) => {
+    async (name: string, attendance: AttendanceChoice, numGuests: number) => {
       setPhase("submitting");
       try {
-        await submitRSVP(name, attendance);
-        setRsvpData({ name, attendance });
+        await submitRSVP(name, attendance, numGuests);
+        setRsvpData({ name, attendance, numGuests });
         setPhase("confirmed");
 
         // Scroll to the thank-you section after a short delay to let it render
