@@ -1,4 +1,4 @@
-Project Goal: Create a high-fidelity, interactive RSVP landing page for "Srinivas Kalyanam" that feels like a premium, gold-embossed physical invitation.
+Project Goal: Create a high-fidelity, interactive RSVP landing page for "Srinivasa Kalyanam" that feels like a premium, gold-embossed physical invitation.
 
 1. Visual DNA (The "Vibe")
 Aesthetic: "Modern Tanjore" meets "Royal Temple Scroll."

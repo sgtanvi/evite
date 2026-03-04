@@ -1,7 +1,7 @@
-# Figma Design Prompt: Srinivas Kalyanam RSVP Website
+# Figma Design Prompt: Srinivasa Kalyanam RSVP Website
 
 ## Project Overview
-Design a sacred and elegant RSVP website for Srinivas Kalyanam (Lord Srinivasa's divine wedding ceremony) hosted by The Guttula Family. The design should embody traditional South Indian temple aesthetics with modern, interactive web elements.
+Design a sacred and elegant RSVP website for Srinivasa Kalyanam (Lord Srinivasa's divine wedding ceremony) hosted by The Guttula Family. The design should embody traditional South Indian temple aesthetics with modern, interactive web elements.
 
 ---
 
@@ -290,4 +290,4 @@ May you be showered with Lord's blessings
 ---
 
 ## Final Notes
-This design should feel like a digital temple invitation - sacred, beautiful, and respectful of the cultural significance of Srinivas Kalyanam. Every element should serve both aesthetic beauty and functional clarity, creating an experience that honors this divine celebration while making the RSVP process seamless for guests.
+This design should feel like a digital temple invitation - sacred, beautiful, and respectful of the cultural significance of Srinivasa Kalyanam. Every element should serve both aesthetic beauty and functional clarity, creating an experience that honors this divine celebration while making the RSVP process seamless for guests.

@@ -34,7 +34,7 @@ export function LandingSection({ onSubmit, isSubmitting }: LandingSectionProps) 
         background:
           "linear-gradient(170deg, #FBF5E0 0%, #F7EDCC 30%, #F2E0A8 60%, #F8EDD4 80%, #FBF5E0 100%)",
       }}
-      aria-label="Srinivas Kalyanam Invitation"
+      aria-label="Srinivasa Kalyanam Invitation"
     >
       {/* Paper texture overlay */}
       <PaperTexture />

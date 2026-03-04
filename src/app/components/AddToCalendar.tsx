@@ -3,9 +3,9 @@ import { Calendar, ChevronDown, ExternalLink } from "lucide-react";
 
 /** Event details used to generate calendar links. */
 const EVENT = {
-  title: "Srinivas Kalyanam – The Divine Wedding of Lord Srinivasa",
+  title: "Srinivasa Kalyanam – The Divine Wedding of Lord Srinivasa",
   description:
-    "The Guttula Family cordially invites you to the sacred Srinivas Kalyanam (Lord Srinivasa's Divine Wedding Ceremony). Please join us to witness this auspicious celebration.",
+    "The Guttula Family cordially invites you to the sacred Srinivasa Kalyanam (Lord Srinivasa's Divine Wedding Ceremony). Please join us to witness this auspicious celebration.",
   location: "Kedarnath Hall, Shiva-Vishnu Temple, 1232 Arrowhead Ave, Livermore, CA 94551",
   startDatetime: "20260327T103000",
   endDatetime: "20260327T160000",
@@ -46,7 +46,7 @@ function generateICSContent(): string {
   return [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
-    "PRODID:-//Srinivas Kalyanam//EN",
+    "PRODID:-//Srinivasa Kalyanam//EN",
     "CALSCALE:GREGORIAN",
     "METHOD:PUBLISH",
     "BEGIN:VEVENT",
