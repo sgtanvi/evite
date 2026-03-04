@@ -153,7 +153,7 @@ export function LandingSection({ onSubmit, isSubmitting }: LandingSectionProps) 
             filter: "drop-shadow(0 2px 6px rgba(139,0,0,0.2))",
           }}
         >
-          SRINIVAS KALYANAM
+          SRINIVASA KALYANAM
         </motion.h1>
 
         <motion.div
