@@ -15,7 +15,7 @@ interface RSVPData {
 }
 
 const MAX_NAME_LENGTH = 200;
-const RSVP_COOLDOWN_MS = 60_000; // 1 minute between submissions per browser
+const RSVP_COOLDOWN_MS = 15_000; // 15 seconds between submissions per browser
 const RSVP_STORAGE_KEY = "evite_rsvp_last_submit";
 
 function isRateLimited(): boolean {
