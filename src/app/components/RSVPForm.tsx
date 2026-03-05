@@ -16,7 +16,7 @@ interface RSVPFormProps {
 export function RSVPForm({ onSubmit, isSubmitting }: RSVPFormProps) {
   const [name, setName] = useState("");
   const [attendance, setAttendance] = useState<AttendanceChoice | null>(null);
-  const [numGuests, setNumGuests] = useState(1);
+  const [guestsInput, setGuestsInput] = useState("1");
   const [nameError, setNameError] = useState("");
   const [attendanceError, setAttendanceError] = useState("");
   const [guestsError, setGuestsError] = useState("");
@@ -40,8 +40,8 @@ export function RSVPForm({ onSubmit, isSubmitting }: RSVPFormProps) {
       setAttendanceError("");
     }
     if (attendance === "yes") {
-      const n = numGuests;
-      if (n < MIN_GUESTS || n > MAX_GUESTS || !Number.isInteger(n)) {
+      const n = parseInt(guestsInput, 10);
+      if (guestsInput.trim() === "" || Number.isNaN(n) || n < MIN_GUESTS || n > MAX_GUESTS) {
         setGuestsError(`Please enter a number between ${MIN_GUESTS} and ${MAX_GUESTS}.`);
         valid = false;
       } else {
@@ -59,7 +59,8 @@ export function RSVPForm({ onSubmit, isSubmitting }: RSVPFormProps) {
     const trimmed = name.trim();
     if (trimmed.length > MAX_NAME_LENGTH) return;
     if (attendance !== "yes" && attendance !== "no") return;
-    const guests = attendance === "yes" ? Math.min(MAX_GUESTS, Math.max(MIN_GUESTS, Math.floor(numGuests))) : 0;
+    const parsed = parseInt(guestsInput, 10);
+    const guests = attendance === "yes" ? (Number.isNaN(parsed) || parsed < 1 ? 1 : Math.min(MAX_GUESTS, Math.max(MIN_GUESTS, parsed))) : 0;
     await onSubmit(trimmed, attendance, guests);
   }
 
@@ -269,10 +270,15 @@ export function RSVPForm({ onSubmit, isSubmitting }: RSVPFormProps) {
                 type="number"
                 min={MIN_GUESTS}
                 max={MAX_GUESTS}
-                value={numGuests}
+                value={guestsInput}
                 onChange={(e) => {
-                  const v = e.target.valueAsNumber;
-                  if (!Number.isNaN(v)) setNumGuests(Math.max(MIN_GUESTS, Math.min(MAX_GUESTS, Math.floor(v))));
+                  const raw = e.target.value;
+                  if (raw === "") {
+                    setGuestsInput("");
+                  } else if (/^\d+$/.test(raw)) {
+                    const n = parseInt(raw, 10);
+                    setGuestsInput(String(Math.min(MAX_GUESTS, n)));
+                  }
                   if (guestsError) setGuestsError("");
                 }}
                 disabled={isSubmitting}
